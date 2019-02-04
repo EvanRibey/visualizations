@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vertical Bar Chart</title>
+	<style type="text/css">
+		body {
+			font: 11px sans-serif;
+			padding: 10px 5%;
+		}
+
+		p {
+			font-size: 140%;
+		}
+
+		.container {
+			border: 1px solid #ccc;
+			margin: 0 auto;
+			position: relative;
+			text-align: center;
+			vertical-align: middle;
+			width: 960px;
+		}
+
+		.vector {
+			display: inline-block;
+		}
+
+		.bar {
+			transition: 0.3s;
+		}
+
+		.bar:hover {
+			fill: brown;
+		}
+
+		.x.axis path {
+			display: none;
+		}
+
+	</style>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<h1>Vertical Bar Chart</h1>
+<p>A vertical bar representation of the previous data seen in <a href="/visualizations/donut/">the donut chart</a>. This is a slightly better representation of the same data as it allows for better comparison of the bars side by side. Furthermore you can better see the count and percentage data for each bar based on the appropriate axis.</p>
+<div class="container"></div>
+<script type="text/javascript">
+	var	svg = d3.select(".container").append("svg")
+			.attr("class", "vector")
+			.attr("height", 500)
+			.attr("width", 700);
+	
+	var	margin = {top: 20, right: 40, bottom: 30, left: 40},
+		width = svg.attr("width") - margin.left - margin.right,
+		height = svg.attr("height") - margin.top - margin.bottom;
+
+	var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+	var	x = d3.scaleBand().rangeRound([0, width]).padding(0.2),
+		y1 = d3.scaleLinear().rangeRound([height, 0]),
+		y2 = d3.scaleLinear().rangeRound([height, 0]);
+
+	var axisX = d3.axisLeft(y1).ticks(10);
+
+	var axisRight = d3.axisRight(y2)
+		.ticks(10)
+		.tickFormat(d3.format(".0%"));
+
+	var gL = svg.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var gR = svg.append("g")
+			.attr("transform", "translate(" + (width+margin.left) + "," + margin.top + ")");
+
+	d3.json("data.json", function(error, data) {
+		if(error) throw error;
+
+		data.forEach(function(d) {
+			d.percent = d.count / d3.sum(data, function(d) {return d.count});
+		});
+
+		x.domain(data.map(function(d) { return d.race; }));
+		y1.domain([0, d3.max(data, function(d) { return d.count; })]);
+		y2.domain([0, d3.max(data, function(d) { return d.percent; })]);
+
+		gL.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(d3.axisBottom(x));
+
+		gL.append("g").call(axisX);
+		
+		gL.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 6)
+				.attr("dy", "0.71em")
+				.attr("text-anchor", "end")
+				.text("Count");
+
+		gR.append("g").call(axisRight);
+			
+		gR.append("text")
+				.attr("transform", "rotate(-90)")
+				.style("font-size", "11px")
+				.attr("y", -12)
+				.attr("dy", "0.71em")
+				.attr("text-anchor", "end")
+				.text("Percentage");
+		
+		gL.selectAll(".bar")
+			.data(data)
+			.enter().append("rect")
+				.attr("class", "bar")
+				.attr("x", function(d) { return x(d.race); })
+				.attr("y", function(d) { return y1(d.count); })
+				.attr("fill", function(d) {return color(d.race)})
+				.attr("width", x.bandwidth())
+				.attr("height", function(d) { return height - y1(d.count); });
+	});
+</script>
+</body>
+</html>

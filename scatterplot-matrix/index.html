@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+	<title>Fuel Consumption Ratings Scatterplot Matrix</title>
+	<style type="text/css">
+		body {
+				font: 10px sans-serif;
+				padding: 10px 5%;
+			}
+
+			p {
+				font-size: 140%;
+			}
+
+			.container {
+				text-align: center;
+				position: relative;
+				width: 1280px;
+				vertical-align: middle;
+				margin: 0 auto;
+				border: 1px solid #ccc;
+				padding: 20px;
+			}
+
+			.axis,
+			.frame {
+			  shape-rendering: crispEdges;
+			}
+
+			.axis line {
+				stroke: #ddd;
+			}
+
+			.axis path {
+				display: none;
+			}
+
+			.cell text {
+				font-weight: bold;
+				text-transform: capitalize;
+			}
+
+			.frame {
+				fill: none;
+				stroke: #aaa;
+			}
+
+			circle {
+				fill-opacity: .7;
+			}
+	</style>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<h1>2016 Vehicle Fuel Consumption Ratings Scatterplot Matrix</h1>
+<p>A different kind of scatterplot showcasing the comparisons between engine size, number of cylinders, combined fuel economy (L/100 km), C0<sub>2</sub> emmisions (g/km) and the CO<sub>2</sub> rating within each other in a matrix format. Much of the code is a recreation of <a href="http://bl.ocks.org/mbostock/3213173">Mike Bostock's</a> it was slightly adjusted for d3 v4 and for use with the dataset.</p>
+<p>Data source courtesy of <a href="http://open.canada.ca/data/en/dataset/98f1a129-f628-4ce4-b24d-6f16bf24dd64">Government of Canada Open Data</a>.</p>
+<div class="container"></div>
+<script type="text/javascript">	
+	var	width = 960,
+		size = 230,
+		padding = 20;
+
+	var x = d3.scaleLinear()
+		.range([padding/2, size - padding/2]);
+
+	var y = d3.scaleLinear()
+		.range([size-padding/2, padding/2]);
+
+	var xAxis = d3.axisBottom(x)
+		.ticks(6);
+
+	var yAxis = d3.axisLeft(y)
+		.ticks(6);
+
+	var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+	d3.csv("MY2016 Fuel Consumption Ratings.csv", function(error, data) {
+		if(error) throw error;
+
+		var domainByTrait = {},
+			traits = d3.keys(data[0]).filter(function(d) { return d !== "year" && d !== "make" && d !== "model";}),
+			n = traits.length;
+
+		// traits.forEach(function(trait) {
+		// 	domainByTrait[trait] = d3.extent(data, function(d) { return d[trait]; });
+		// });
+
+		// For Some Reason d3.extent doesn't like to pull the actual mins and maxes....
+		domainByTrait["CombFuelEconomy"] = [4.5,21.4];
+		domainByTrait["EngineSize"] = [0.9,8.4];
+		domainByTrait["Cylinders"] = [3,12];
+		domainByTrait["CO2Emmisions"] = [104,476];
+		domainByTrait["CO2Rating"] = [1,10];
+
+		xAxis.tickSize(size * n);
+		yAxis.tickSize(-size * n);
+
+		var svg = d3.select(".container").append("svg")
+				.attr("class", "vector")
+				.attr("width", size * n + padding)
+				.attr("height", size * n + padding)
+			.append("g")
+				.attr("transform", "translate(" + padding + "," + padding/2 + ")");
+
+		svg.selectAll(".x.axis")
+				.data(traits)
+			.enter().append("g")
+				.attr("class", "x axis")
+				.attr("transform", function(d, i) {return "translate("+ (n-i-1) * size +",0)"; })
+				.each(function(d) {x.domain(domainByTrait[d]); d3.select(this).call(xAxis)} );
+
+		svg.selectAll(".y.axis")
+				.data(traits)
+			.enter().append("g")
+				.attr("class", "y axis")
+				.attr("transform", function(d, i) {return "translate(0,"+ (n-i-1) * size +")"; })
+				.each(function(d) {y.domain(domainByTrait[d]); d3.select(this).call(yAxis)} );
+
+		var cell = svg.selectAll(".cell")
+				.data(cross(traits, traits))
+			.enter().append("g")
+				.attr("class", "cell")
+				.attr("transform", function(d) { return "translate(" + (n - d.i - 1) * size + "," + d.j * size + ")"; })
+				.each(plot);
+
+		cell.filter(function(d) { return d.i === d.j; }).append("text")
+			.attr("x", padding)
+			.attr("y", padding)
+			.attr("dy", "0.71em")
+			.text(function(d) {return d.x; });
+
+		function plot(p) {
+			var cell = d3.select(this);
+
+			x.domain(domainByTrait[p.x]);
+			y.domain(domainByTrait[p.y]);
+
+			cell.append("rect")
+				.attr("class", "frame")
+				.attr("x", padding/2)
+				.attr("y", padding/2)
+				.attr("width", size-padding)
+				.attr("height", size-padding);
+
+			cell.selectAll("circle")
+					.data(data)
+				.enter().append("circle")
+					.attr("cx", function(d) {return x(d[p.x])})
+					.attr("cy", function(d) {return y(d[p.y])})
+					.attr("title", function(d) {return d.year+" "+d.make+" "+d.model;})
+					.attr("r", 4)
+					.style("fill", function(d) {return color(d.make)});
+		}
+	});
+
+	function cross(a,b) {
+		var c = [], n = a.length, m = b.length, i, j;
+		for(i = -1; ++i < n;) for(j = -1; ++j < m;) c.push({x: a[i], i:i, y: b[j], j:j});
+		return c;
+	}
+
+
+</script>
+</body>
+</html>

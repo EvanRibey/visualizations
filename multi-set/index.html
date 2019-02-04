@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Multi-set Bar Chart</title>
+	<style type="text/css">
+		body {
+			font: 10px sans-serif;
+			padding: 10px 5%;
+		}
+
+		p {
+			font-size: 140%;
+		}
+
+		.container {
+			text-align: center;
+			position: relative;
+			width: 960px;
+			vertical-align: middle;
+			margin: 0 auto;
+			border: 1px solid #ccc;
+		}
+
+		.vector {
+			display: inline-block;
+		}
+
+		.x.axis path {
+			display: none;
+		}
+
+		div.tooltip {	
+		    position: absolute;			
+		    text-align: center;			
+		    width: 40px;					
+		    padding: 2px;				
+		    font-size: 12px;
+		    border: 1px solid #000;		
+		    border-radius: 6px;			
+		    pointer-events: none;			
+		}
+
+	</style>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<h1>Multi-set Bar Chart</h1>
+<p>A chart representing a grouped method of comparing multiple cohorts. While the method is very simple, it allows for the easy comparison of each individual count (in this case the vote percentage) to others within the respective cohort (province). However, where this method lacks is that it is not easy to compare vote percentages of parties between provinces because of the large gap between each. Hovering over each vertical bar displays the vote percentage for each, though this does not solve the problem when comparing the bars by "eyeballing" them. For convenience, hovering over each bar calculates the darker colour of the bar instead of a solid dark colour for all.</p>
+<p>This graphic specifically uses the using the Canadian 2015 Federal election data, displaying vote percentages for the five major parties of Canada on a per province basis. <a href="http://www.elections.ca/content.aspx?section=res&dir=rep/off/42gedata&document=index&lang=e">Source</a>.</p>
+<div class="container"></div>
+<script type="text/javascript">
+	var	svg = d3.select(".container").append("svg")
+			.attr("class", "vector")
+			.attr("height", 500)
+			.attr("width", 960);
+	
+	var	margin = {top: 20, right: 20, bottom: 30, left: 40},
+		width = svg.attr("width") - margin.left - margin.right,
+		height = svg.attr("height") - margin.top - margin.bottom;
+
+	var	x0 = d3.scaleBand().rangeRound([0, width]).paddingInner(0.1),
+		x1 = d3.scaleBand().padding(0.05),
+		y = d3.scaleLinear().rangeRound([height, 0]),
+		z = d3.scaleOrdinal().range(["lightcoral", "cornflowerblue", "sandybrown", "#99c955", "lightskyblue"]);
+
+	var g = svg.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var div = d3.select("body").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
+	d3.tsv("canadian-2015-election_vote.tsv", function(d, i, columns) {
+		for (var i = 1, n = columns.length; i < n; i++) d[columns[i]] = +d[columns[i]];
+		return d;
+	}, function(error, data) {
+		if(error) throw error;
+
+		var keys = data.columns.slice(1);
+
+		x0.domain(data.map(function(d) { return d.province; } ));
+		x1.domain(keys).rangeRound([0, x0.bandwidth()]);
+		y.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]);
+
+		g.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(d3.axisBottom(x0));
+
+		g.append("g")
+				.attr("class", "axis axis--y")
+				.call(d3.axisLeft(y).ticks(10))
+			.append("text")
+				.attr("y", 10)
+				.attr("x", -40)
+				.attr("transform", "rotate(-90)")
+				.attr("dy", "0.32em")
+				.attr("fill", "#000")
+				.attr("text-anchor", "start")
+				.text("Vote %");
+
+		g.append("g").selectAll("g")
+			.data(data)
+			.enter().append("g")
+				.attr("transform", function(d) { return "translate(" + x0(d.province) + ",0)"; })
+			.selectAll("rect")
+			.data(function(d) {return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+			.enter().append("rect")
+				.attr("x", function(d) { return x1(d.key); })
+				.attr("y", function(d) { return y(d.value); })
+				.attr("width", x1.bandwidth())
+				.attr("height", function(d) { return height - y(d.value); })
+				.attr("fill", function(d) { return z(d.key)})
+				.on("mouseover", function(d) {
+					var color = d3.rgb(z(d.key));
+
+					d3.select(this).transition()
+						.duration(200)
+						.attr("fill", function(d) { return color.darker().toString();});
+
+					div.transition()
+						.duration(200)
+						.style("opacity", 0.9)
+						.style("background", function(d) { return color.brighter().toString();});
+
+					div.html(d.value + "%")
+						.style("left", (d3.event.pageX-10)+"px")
+						.style("top", (d3.event.pageY-15)+"px");
+
+				})
+				.on("mouseout", function(d) {
+					var color = d3.rgb(z(d.key));
+
+					d3.select(this).transition()
+						.duration(200)
+						.attr("fill", function(d) { return color.toString();});
+
+					div.transition()
+						.duration(100)
+						.style("opacity", 0);
+				});
+
+		var legend = g.append("g")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", 10)
+				.attr("text-anchor", "end")
+		    .selectAll("g")
+		    .data(keys.slice())
+		    .enter().append("g")
+				.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+		  legend.append("rect")
+		      .attr("x", width - 19)
+		      .attr("width", 19)
+		      .attr("height", 19)
+		      .attr("fill", z);
+
+		  legend.append("text")
+		      .attr("x", width - 24)
+		      .attr("y", 9.5)
+		      .attr("dy", "0.32em")
+		      .text(function(d) { return d; });
+
+	});
+</script>
+</body>
+</html>

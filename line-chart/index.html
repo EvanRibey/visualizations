@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+<head>
+<title>Mobile Friendly Line Chart</title>
+<style type="text/css">
+body {
+	font: 10px sans-serif;
+	padding: 10px 5%;
+}
+
+p {
+	font-size: 140%;
+}
+
+.container {
+	position: relative;
+	width: 80%;
+	padding-bottom: 44%;
+	vertical-align: middle;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+.graph {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.axis {
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	fill: none;
+	stroke: #fff;
+}
+
+.x.axis line {
+	stroke: #000;
+	stroke-opacity: .8;
+}
+
+.x.axis text {
+	font-size: 12px;
+}
+
+.y.axis line {
+	stroke: #ddd;
+}
+
+.line {
+	fill: none;
+	stroke: #8856a7;
+	stroke-width: 2px;
+}
+
+.pane {
+	cursor: move;
+	fill: none;
+	pointer-events: all;
+}
+
+.domain {
+	stroke: #fff;
+}
+
+.chart {
+	clip-path: url(#clip);
+}
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+</head>
+<body>
+<h1>Line Chart</h1>
+<p>A chart representation of the average milk production of dairy cows progressively from the 1960s and '70s (Source: Cryer (1986)). The graph does feature d3.js' zoom capability, and adjusting axis. This can be accessed through scrolling on the graph itself. The chart will also scale dynamically as the window is adjusted width wise in order to update for mobile and tablet devices.</p>
+<div class="container"></div>
+<script>
+	var margin = {top: 20, right: 20, bottom: 80, left: 60},
+		width = 970 - margin.left - margin.right,
+		height = 540 - margin.top - margin.bottom;
+	
+	var formatDate = d3.timeParse("%Y-%m");
+	
+	var x = d3.scaleTime()
+		.range([0, width]);
+
+	var y = d3.scaleLinear()
+		.range([height, 0]);
+
+	var xAxis = d3.axisBottom(x);
+
+	var yAxis = d3.axisLeft(y)
+		.ticks(10)
+		.tickSize(-width);
+
+	var line = d3.line()
+		.x(function(d) {return x(d.month); })
+		.y(function(d) {return y(d.milkproduction); });
+		
+	var svg = d3.select(".container").append("svg")
+			.attr("class", "graph")
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.attr("viewBox", "0 0 "+ (width + margin.left + margin.right) +" , "+ (height + margin.top + margin.bottom))
+		.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var zoom = d3.zoom()
+				.extent([[0, 0], [width, height]])
+				.scaleExtent([1, 4000000])
+				.translateExtent([[0, 0], [width, height]])
+				.on("zoom", zoom);
+
+	svg.append("defs").append("clipPath")
+			.attr("id", "clip")
+		.append("rect")
+			.attr("width", width)
+			.attr("height", height);
+
+	svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+	svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+	svg.append("g")
+			.attr("class", "chart")
+		.append("path")
+			.attr("clip-path", "url(#clip)")
+			.attr("class", "line");
+
+	svg.append("text")
+		.attr("id", "xAxisLabel")
+		.attr("transform",
+		        "translate(" + (width/2) + " ," + 
+	                           (height + margin.top + 25) + ")")
+	    .style("text-anchor", "middle")
+	    .style("font-size", "15px")
+	    .text("Time");
+
+	svg.append("text")
+		.attr("id", "yAxisLabel")
+		.attr("transform", "translate("+ -(margin.right+30) +"," + height/2 + ")" + "rotate(-90)")
+		.attr("x", 100)
+		.attr("y", 6)
+		.attr("dy", "1em")
+		.style("text-anchor", "end")
+		.style("font-size", "13px")
+		.text("Average Milk (lbs) / Cow");
+	
+	var view = svg.append("rect")
+		    .attr("class", "pane")
+		    .attr("x", 0.5)
+		    .attr("y", 0.5)
+		    .attr("width", width)
+		    .attr("height", height);
+
+	svg.call(zoom);
+
+	d3.tsv("monthly-milk-production-pounds-p.tsv", function(d) {
+		d.month = formatDate(d.month);
+		d.milkproduction = +d.milkproduction;
+		return d;
+	}, function(error, data) {
+		if (error) throw error;
+
+		x.domain(d3.extent(data, function(d) { return d.month; }));
+		y.domain(d3.extent(data, function(d) { return d.milkproduction; }));
+
+		svg.select("g.x.axis").call(xAxis);
+		svg.select("g.y.axis").call(yAxis);
+
+		svg.select("path.line")
+			.datum(data)
+			.attr("d", line);
+	});
+
+	function resize() {
+		var windowWidth		= window.innerWidth,
+			mobileSize		= 25,					// Font sizes
+			tabletSize		= 18,
+			sDesktopSize	= 15,
+			desktopSize		= 10;
+
+		// Mobile width
+		if(windowWidth < 540) {
+			svg.select("g.x.axis").call(xAxis.ticks(5));
+			svg.select("g.y.axis").call(yAxis.ticks(3));
+
+			svg.selectAll(".x.axis text").style("font-size", mobileSize);
+			svg.selectAll(".y.axis text").style("font-size", mobileSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "30px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")");
+
+			svg.select("#yAxisLabel")
+				.style("display", "none");
+
+			svg.select("path.line")
+				.style("stroke-width", 6);
+
+		// Tablet width
+		} else if(windowWidth < 768) {
+			svg.select("g.x.axis").call(xAxis.ticks(8));
+			svg.select("g.y.axis").call(yAxis.ticks(4));
+			
+			svg.selectAll(".x.axis text").style("font-size", tabletSize);
+			svg.selectAll(".y.axis text").style("font-size", tabletSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "22px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")");
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "20px")
+				.attr("transform", "translate("+ -(margin.right+40) +"," + (height/2 - 60) + ")" + "rotate(-90)");
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		
+		// Small screen desktop width
+		} else if(windowWidth < 1024) {
+			svg.select("g.x.axis").call(xAxis.ticks(10));
+			svg.select("g.y.axis").call(yAxis.ticks(5));
+
+			svg.selectAll(".x.axis text").style("font-size", sDesktopSize);
+			svg.selectAll(".y.axis text").style("font-size", sDesktopSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "18px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "18px")
+				.attr("transform", "translate("+ -(margin.right+40) +"," + (height/2 - 60) + ")" + "rotate(-90)");;
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		
+		// Standard desktop width
+		} else {
+			svg.select("g.x.axis").call(xAxis.ticks(10));
+			svg.select("g.y.axis").call(yAxis.ticks(10));
+
+			svg.selectAll(".x.axis text").style("font-size", desktopSize);
+			svg.selectAll(".y.axis text").style("font-size", desktopSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "15px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 25) + ")")
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "13px")
+				.attr("transform", "translate("+ -(margin.right+30) +"," + height/2 + ")" + "rotate(-90)");
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		}
+	}
+
+	function zoom() {
+		var t = d3.event.transform, xt = t.rescaleX(x);
+		svg.select("path.line").attr("d", line.x(function(d) {return xt(d.month); }));
+		svg.select("g.x.axis").call(xAxis.scale(xt));
+
+		resize();
+	}
+
+	window.onresize = resize;
+</script>
+</body>
+</html>

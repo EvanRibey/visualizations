@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stacked Multiple Bar Chart</title>
+	<style type="text/css">
+		body {
+			font: 10px sans-serif;
+			padding: 10px 5%;
+		}
+
+		p {
+			font-size: 140%;
+		}
+
+		.container {
+			text-align: center;
+			position: relative;
+			width: 960px;
+			vertical-align: middle;
+			margin: 0 auto;
+			border: 1px solid #ccc;
+		}
+
+		.vector {
+			display: inline-block;
+		}
+
+		.x.axis path {
+			display: none;
+		}
+
+		div.tooltip {	
+		    position: absolute;			
+		    text-align: center;			
+		    width: 40px;					
+		    padding: 2px;				
+		    font-size: 12px;
+		    border: 1px solid #000;		
+		    border-radius: 6px;			
+		    pointer-events: none;			
+		}
+
+	</style>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<h1>Stacked-Multiple Bar Chart</h1>
+<p>A chart representing the stacked-multiple method of visualizing cohort data. The method uses a different approach to showcase the data in order to better compare data between different provinces within a party using a stack-like method, while still allowing for the comparison between the different parties. For some provinces it is very difficult to read exactly what the vote share is (Green Party); for those a hover tooltip is provided.</p>
+<p>This graphic specifically uses the using the Canadian 2015 Federal election data, displaying vote percentages for the four major parties of Canada on a per province basis. This graphic does not include data for the Bloc Qu&eacute;b&eacute;cois as party share is only within Qu&eacute;bec and not throughout the entire country. <a href="http://www.elections.ca/content.aspx?section=res&dir=rep/off/42gedata&document=index&lang=e">Source</a>.</p>
+<div class="container"></div>
+<script type="text/javascript">
+	var	svg = d3.select(".container").append("svg")
+			.attr("class", "vector")
+			.attr("height", 500)
+			.attr("width", 960);
+	
+	var	margin = {top: 10, right: 20, bottom: 30, left: 40},
+		width = svg.attr("width") - margin.left - margin.right,
+		height = svg.attr("height") - margin.top - margin.bottom;
+
+	var	x = d3.scaleBand().rangeRound([0, width]).padding(0.5),
+		y0 = d3.scaleBand().rangeRound([height, 0]).paddingInner(0.1),
+		y1 = d3.scaleLinear(),
+		z = d3.scaleOrdinal().range(["lightcoral", "cornflowerblue", "sandybrown", "#99c955"]);
+
+	var g = svg.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var div = d3.select("body").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
+	d3.tsv("canadian-2015-election_vote.tsv", function(d, i, columns) {
+		for (var i = 1, n = columns.length; i < n; i++) d[columns[i]] = +d[columns[i]];
+		return d;
+	}, function(error, data) {
+		if(error) throw error;
+
+		var keys = d3.keys(data[0]).filter(function(d) { return d !== "province"; }),
+			n = keys.length,
+			adjustment = height/n - y0.padding() * (height/n);
+
+		x.domain(data.map(function(d) { return d.province; } ));
+		y0.domain(keys);
+		y1.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).rangeRound([adjustment, 0]);
+
+		g.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(d3.axisBottom(x));
+
+		keys.forEach(function(party) {
+			g.append("g")
+				.attr("class", "axis axis--y")
+				.attr("transform", function(d) { return "translate(10," + y0(party) + ")"; })
+				.call(d3.axisLeft(y1).ticks(4))
+			.append("text")
+				.attr("y", 10)
+				.attr("x", -35)
+				.attr("transform", "rotate(-90)")
+				.attr("dy", "0.32em")
+				.attr("fill", "#000")
+				.attr("text-anchor", "start")
+				.text("Vote %");
+		});
+
+		g.append("g").selectAll("g")
+			.data(data)
+			.enter().append("g")
+				.attr("transform", function(d) { return "translate(" + x(d.province) + ",0)"; })
+			.selectAll("rect")
+			.data(function(d) {return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+			.enter().append("rect")
+				.attr("fill", function(d) { return z(d.key); })
+				.attr("width", function(d) { return x.bandwidth(); })
+				.attr("height", function(d) { return adjustment - y1(d.value); })
+				.attr("y", function(d) { return y1(d.value) + y0(d.key)})
+				.on("mouseover", function(d) {
+					var color = d3.rgb(z(d.key));
+
+					d3.select(this).transition()
+						.duration(200)
+						.attr("fill", function(d) { return color.darker().toString();});
+
+					div.transition()
+						.duration(200)
+						.style("opacity", 0.9)
+						.style("background", function(d) { return color.brighter().toString();});
+
+					div.html(d.value + "%")
+						.style("left", (d3.event.pageX-10)+"px")
+						.style("top", (d3.event.pageY-25)+"px");
+
+				})
+				.on("mouseout", function(d) {
+					var color = d3.rgb(z(d.key));
+
+					d3.select(this).transition()
+						.duration(200)
+						.attr("fill", function(d) { return color.toString();});
+
+					div.transition()
+						.duration(100)
+						.style("opacity", 0);
+				});
+
+		var legend = g.append("g")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", 10)
+				.attr("text-anchor", "end")
+			.selectAll("g")
+			.data(keys.slice())
+			.enter().append("g")
+				.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+		legend.append("rect")
+			.attr("x", width - 19)
+			.attr("width", 19)
+			.attr("height", 19)
+			.attr("fill", z);
+
+		legend.append("text")
+			.attr("x", width - 24)
+			.attr("y", 9.5)
+			.attr("dy", "0.32em")
+			.text(function(d) { return d; });
+
+	});
+</script>
+</body>
+</html>

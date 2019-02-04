@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flu Season Histogram</title>
+	<style type="text/css">
+		body {
+			font: 11px sans-serif;
+			padding: 10px 5%;
+		}
+
+		p {
+			font-size: 140%;
+		}
+
+		.container {
+			border: 1px solid #ccc;
+			margin: 0 auto;
+			position: relative;
+			text-align: center;
+			vertical-align: middle;
+			width: 960px;
+		}
+
+		.vector {
+			display: inline-block;
+		}
+
+		.bar {
+			fill: steelblue;
+			transition: 0.3s;
+		}
+
+		.bar:hover {
+			fill: brown;
+		}
+
+		.x.axis path {
+			display: none;
+		}
+
+	</style>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<h1>Canadian Flu Season Histogram</h1>
+<p>A histogram visualization illustrating the maximum amount of hospitalizations per month for the flu in Canada. The graphic also allows for the selection of previous flu seasons in order to compare between each and redraw the visualization from the dropdown menu. <a href="http://open.canada.ca/data/en/dataset?q=flu+watch&sort=metadata_modified+desc">Data source</a>.</p>
+<div class="container">
+<form style="text-align: right; padding: 4px 2px 0 0;">
+	<select id="year">
+		<option value="2013-2014">2013-2014</option>
+		<option value="2012-2013">2012-2013</option>
+		<option value="2011-2012">2011-2012</option>
+		<option value="2010-2011">2010-2011</option>
+	</select>  
+</form>
+</div>
+<script type="text/javascript">
+	var	svg = d3.select(".container").append("svg")
+			.attr("class", "vector")
+			.attr("height", 500)
+			.attr("width", 960);
+	
+	var	margin = {top: 20, right: 40, bottom: 30, left: 40},
+		width = svg.attr("width") - margin.left - margin.right,
+		height = svg.attr("height") - margin.top - margin.bottom;
+
+	var parseTime = d3.timeParse("%Y-%U");
+
+	var	x = d3.scaleTime().rangeRound([0, width]),
+		y = d3.scaleLinear().range([height, 0]);
+
+	var axisX = d3.axisBottom(x);
+	var axisY = d3.axisLeft(y).ticks(10);
+
+	var g = svg.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	g.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")");
+
+	g.append("g")
+		.attr("class", "y axis");
+
+	g.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 6)
+			.attr("dy", "0.71em")
+			.attr("text-anchor", "end")
+			.text("Count");
+	
+	update(document.getElementById("year").value);
+	update(document.getElementById("year").value);
+
+	document.getElementById("year").onchange = function() {
+		update(document.getElementById("year").value);	
+	}
+	
+	function update(year) {
+		d3.tsv(year+"-flu-hospitalizations.tsv", function(d) {
+			d.date = parseTime(d.date);
+			d.hospitalizations = +d.hospitalizations;
+			return d;
+		}, function(error, data) {
+			if(error) throw error;
+
+			x.domain(d3.extent(data, function(d) { return d.date; }));
+			
+			var bins = d3.histogram()
+				.value(function(d) { return d.date; })
+				.domain(x.domain())
+				.thresholds(x.ticks(12))
+				(data);
+
+			y.domain([0, d3.max(bins, function(d) { return d3.max(d, function(j) { return j.hospitalizations; })})]);
+			
+			var bar = g.selectAll(".bar").data(bins);
+
+			bar.enter().append("rect")
+				.attr("class", "bar")
+				.attr("height", height - y(0))
+				.attr("y", y(0));
+
+			bar.transition().duration(300)
+					.attr("x", function(d) { return x(d.x0);})
+					.attr("y", function(d) { return y(d3.max(d, function(j) { return j.hospitalizations; }));})
+					.attr("width", function(d) {return x(d.x1) - x(d.x0);})
+					.attr("height", function(d) { return height - y(d3.max(d, function(j) { return j.hospitalizations; })); });
+			
+			bar.exit()
+				.transition()
+				      .duration(300)
+				    .attr("y", y(0))
+				    .attr("height", height - y(0))
+				    .style('fill-opacity', 1e-6)
+				.remove();
+
+			g.select(".y.axis").transition().duration(300).call(axisY);
+			g.select(".x.axis").transition().duration(300).call(axisX);
+		});
+	}
+
+</script>
+</body>
+</html>
