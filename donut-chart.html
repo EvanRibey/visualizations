@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://evanribey.com/visualizations/donut/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Donut Chart</title>
+<style type="text/css">
+body {
+	font: 10px sans-serif;
+	padding: 10px 5%;
+}
+
+p {
+	font-size: 140%;
+}
+
+.container {
+	position: relative;
+	width: 960px;
+	vertical-align: middle;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+</style>
+<script src="./Donut Chart_files/d3.v4.min.js"></script>
+</head>
+<body>
+
+<h1>Donut Chart</h1>
+<p>A chart representation of a basic donut chart illustrating random survey demographic data. Hovering over each piece of the donut updates the text in the center with the race name and percentage as well as transforming the selected piece to indicate which piece the user is hovering over.</p>
+<p>While I understand that this form of graphic is typically terrible in comparing similar data pieces, this graphic slightly alleviates this by directly showing the exact percentage data on hovering. However, if someone wishes to compare without hovering there are other charts (such as a <a href="http://evanribey.com/visualizations/bar-chart/">vertical bar chart</a>) that better represent this data.</p>
+<div class="container"><svg height="500" width="960"><g transform="translate(480,250)"><text y="-10" x="-55" font-size="50" id="percentage" style="fill: rgb(0, 0, 0);"></text><text x="-85" font-size="25" id="race" style="fill: rgb(0, 0, 0);">Hover to Begin</text><g class="arc"><path d="M1.4542680739874818e-14,-237.5A237.5,237.5,0,0,1,194.72587562243834,-135.9708916021171L116.835525373463,-81.58253496127026A142.5,142.5,0,0,0,8.725608443924892e-15,-142.5Z" style="fill: rgb(31, 119, 180);"></path></g><g class="arc"><path d="M194.72587562243834,-135.9708916021171A237.5,237.5,0,0,1,236.99963202159185,-15.408582726196897L142.1997792129551,-9.245149635718139A142.5,142.5,0,0,0,116.835525373463,-81.58253496127026Z" style="fill: rgb(255, 127, 14);"></path></g><g class="arc"><path d="M236.99963202159185,-15.408582726196897A237.5,237.5,0,0,1,-20.53354993447455,236.61069994209566L-12.32012996068473,141.96641996525742A142.5,142.5,0,0,0,142.1997792129551,-9.245149635718139Z" style="fill: rgb(44, 160, 44);"></path></g><g class="arc"><path d="M-20.53354993447455,236.61069994209566A237.5,237.5,0,0,1,-89.00436511554278,220.191900374149L-53.40261906932567,132.1151402244894A142.5,142.5,0,0,0,-12.32012996068473,141.96641996525742Z" style="fill: rgb(214, 39, 40);"></path></g><g class="arc"><path d="M-89.00436511554278,220.191900374149A237.5,237.5,0,0,1,-204.67435466134518,-120.47679670360553L-122.80461279680709,-72.28607802216332A142.5,142.5,0,0,0,-53.40261906932567,132.1151402244894Z" style="fill: rgb(148, 103, 189);"></path></g><g class="arc"><path d="M-204.67435466134518,-120.47679670360553A237.5,237.5,0,0,1,-2.545704168984042e-13,-237.5L-1.527422501390425e-13,-142.5A142.5,142.5,0,0,0,-122.80461279680709,-72.28607802216332Z" style="fill: rgb(140, 86, 75);"></path></g></g></svg></div>
+<script type="text/javascript">
+	var height	= 500,
+		width	= 960,
+		radius	= (d3.min([height, width]) - 25) / 2;
+
+	var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+	var arc = d3.arc();
+
+	var labelArc = d3.arc()
+		.outerRadius(radius - 40)
+		.innerRadius(radius - 40);
+
+	var pie = d3.pie()
+		.sort(null)
+		.value(function(d) {return d.count;});
+
+	var svg = d3.select(".container").append("svg")
+			.attr("height", height)
+			.attr("width", width)
+		.append("g")
+			.attr("transform", "translate(" + width/2 + "," + height/2 + ")");
+
+	var percentage = svg.append("text")
+		.attr("y", -10)
+		.attr("x", -55)
+		.attr("font-size", 50)
+		.attr("id", "percentage")
+		.style("fill", "white")
+		.transition()
+			.delay(1000)
+			.style("fill", "black");
+
+	var label = svg.append("text")
+		.attr("x", -85)
+		.attr("font-size", 25)
+		.attr("id", "race")
+		.text("Hover to Begin")
+		.style("fill", "white")
+		.transition()
+			.delay(1000)
+			.style("fill", "black");
+
+	d3.json("data.json", function(error, data) {
+		if (error) throw error;
+
+		var arcs = pie(data);
+		var total = d3.sum(arcs, function(d) {return d.value});
+
+		var g = svg.selectAll(".arc")
+				.data(arcs)
+			.enter().append("g")
+				.attr("class", "arc");
+
+		var path = g.append("path");
+
+		path.attr("d", function(d) { return arc(d); })
+			.style("fill", function(d) {return color(d.data.race); })
+			.on("mouseover", function() {
+				d3.select(this)
+					.transition()
+						.attrTween("d", tweenLarge);
+
+				var data = d3.select(this).data()[0].data;
+				var xLength = data.race.length*5;		// Approx. 5px per character
+				d3.select("#race").text(data.race)
+					.attr("font-size", 22)
+					.attr("x", -xLength)
+					.attr("y", 30);
+				d3.select("#percentage").text(Math.round10(data.count/total*100, -1)+"%");
+			})
+			.on("mouseout", function() {
+				d3.select(this)
+					.transition()
+						.attrTween("d", tweenSmall);
+			})
+			.transition()
+				.ease(d3.easeBounce)
+				.delay(function(d, i) { return i*20; })
+				.duration(1000)
+				.attrTween("d", tween);
+	});
+
+	// Taken from MDN Rounding
+	function decimalAdjust(type, value, exp) {
+		if (typeof exp === 'undefined' || +exp === 0) {
+			return Math[type](value);
+		}
+		value = +value;
+		exp = +exp;
+		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+			return NaN;
+		}
+		value = value.toString().split('e');
+		value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+		value = value.toString().split('e');
+		return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+	}
+
+	if (!Math.round10) {
+		Math.round10 = function(value, exp) {
+			return decimalAdjust('round', value, exp);
+		};
+	}
+
+	// Tween Functions for transitions
+
+	function tween(b) {
+		b.innerRadius = radius * .6;
+		b.outerRadius = radius;
+		var i = d3.interpolate({innerRadius: 0}, b);
+		return function(t) {return arc(i(t)); };
+	}
+
+	function tweenLarge(b) {
+		b.innerRadius = radius * .55;
+		b.outerRadius = radius * 1.05;
+		var i = d3.interpolate({innerRadius: radius*.6, outerRadius: radius}, b);
+		return function(t) {return arc(i(t)); };
+	}
+
+	function tweenSmall(b) {
+		b.innerRadius = radius * .6;
+		b.outerRadius = radius;
+		var i = d3.interpolate({innerRadius: radius*.55, outerRadius: radius*1.05}, b);
+		return function(t) {return arc(i(t)); };
+	}
+</script>
+
+</body></html>

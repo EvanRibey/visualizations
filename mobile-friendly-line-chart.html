@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://evanribey.com/visualizations/line-chart/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Mobile Friendly Line Chart</title>
+<style type="text/css">
+body {
+	font: 10px sans-serif;
+	padding: 10px 5%;
+}
+
+p {
+	font-size: 140%;
+}
+
+.container {
+	position: relative;
+	width: 80%;
+	padding-bottom: 44%;
+	vertical-align: middle;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+.graph {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.axis {
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	fill: none;
+	stroke: #fff;
+}
+
+.x.axis line {
+	stroke: #000;
+	stroke-opacity: .8;
+}
+
+.x.axis text {
+	font-size: 12px;
+}
+
+.y.axis line {
+	stroke: #ddd;
+}
+
+.line {
+	fill: none;
+	stroke: #8856a7;
+	stroke-width: 2px;
+}
+
+.pane {
+	cursor: move;
+	fill: none;
+	pointer-events: all;
+}
+
+.domain {
+	stroke: #fff;
+}
+
+.chart {
+	clip-path: url(#clip);
+}
+</style>
+<script src="./Mobile Friendly Line Chart_files/d3.v4.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+</head>
+<body>
+<h1>Line Chart</h1>
+<p>A chart representation of the average milk production of dairy cows progressively from the 1960s and '70s (Source: Cryer (1986)). The graph does feature d3.js' zoom capability, and adjusting axis. This can be accessed through scrolling on the graph itself. The chart will also scale dynamically as the window is adjusted width wise in order to update for mobile and tablet devices.</p>
+<div class="container"><svg class="graph" preserveAspectRatio="xMinYMin meet" viewBox="0 0 970 , 540"><g transform="translate(60,20)"><defs><clippath id="clip"><rect width="890" height="440"></rect></clippath></defs><g class="x axis" transform="translate(0,440)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"><path class="domain" stroke="#000" d="M0.5,6V0.5H890.5V6"></path><g class="tick" opacity="1" transform="translate(0.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1962</text></g><g class="tick" opacity="1" transform="translate(64.42168437622982,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1963</text></g><g class="tick" opacity="1" transform="translate(128.34336875245964,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1964</text></g><g class="tick" opacity="1" transform="translate(192.44018103109013,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1965</text></g><g class="tick" opacity="1" transform="translate(256.36186540731995,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1966</text></g><g class="tick" opacity="1" transform="translate(320.2835497835498,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1967</text></g><g class="tick" opacity="1" transform="translate(384.20523415977965,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1968</text></g><g class="tick" opacity="1" transform="translate(448.30204643841006,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1969</text></g><g class="tick" opacity="1" transform="translate(512.2237308146399,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1970</text></g><g class="tick" opacity="1" transform="translate(576.1454151908697,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1971</text></g><g class="tick" opacity="1" transform="translate(640.0670995670996,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1972</text></g><g class="tick" opacity="1" transform="translate(704.16391184573,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1973</text></g><g class="tick" opacity="1" transform="translate(768.0855962219599,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1974</text></g><g class="tick" opacity="1" transform="translate(832.0072805981896,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em" style="font-size: 10px;">1975</text></g></g><g class="y axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="#000" d="M890,440.5H0.5V0.5H890"></path><g class="tick" opacity="1" transform="translate(0,390.78846153846155)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">600</text></g><g class="tick" opacity="1" transform="translate(0,337.90384615384613)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">650</text></g><g class="tick" opacity="1" transform="translate(0,285.0192307692308)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">700</text></g><g class="tick" opacity="1" transform="translate(0,232.1346153846154)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">750</text></g><g class="tick" opacity="1" transform="translate(0,179.25)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">800</text></g><g class="tick" opacity="1" transform="translate(0,126.36538461538458)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">850</text></g><g class="tick" opacity="1" transform="translate(0,73.48076923076923)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">900</text></g><g class="tick" opacity="1" transform="translate(0,20.59615384615381)"><line stroke="#000" x2="890"></line><text fill="#000" x="-3" dy="0.32em" style="font-size: 10px;">950</text></g></g><g class="chart"><path clip-path="url(#clip)" class="line" d="M0,401.9230769230769L5.42896497441952,431.53846153846155L10.332546241637152,347.9807692307692L15.761511216056672,331.0576923076923L21.008051292142202,255.96153846153845L26.43701626656172,287.69230769230774L31.690853338580613,347.9807692307692L37.11981831300013,391.34615384615387L42.54878328741965,424.13461538461536L47.80262035943854,414.61538461538464L53.23888232979142,440L58.49271940181031,409.3269230769231L63.92168437622983,390.28846153846155L69.35064935064935,426.25L74.25423061786698,334.2307692307692L79.68319559228651,313.0769230769231L84.92973566837203,240.09615384615384L90.35870064279155,267.5961538461538L95.61253771481044,326.8269230769231L101.04150268922996,372.3076923076923L106.47046766364949,408.2692307692308L111.72430473566837,404.03846153846155L117.16056670602126,427.3076923076923L122.41440377804014,392.40384615384613L127.84336875245965,360.6730769230769L133.2723337268792,371.25L138.35104289649746,297.21153846153845L143.78000787091696,279.2307692307692L149.02654794700248,210.48076923076923L154.455512921422,246.4423076923077L159.7093499934409,307.78846153846155L165.13831496786042,349.03846153846155L170.56727994227995,386.0576923076923L175.82111701429884,378.65384615384613L181.25737898465172,396.63461538461536L186.5112160566706,354.3269230769231L191.94018103109013,328.9423076923077L197.36914600550963,367.0192307692308L202.27272727272725,275L207.7016922471468,261.25L212.94823232323233,197.78846153846152L218.37719729765183,225.28846153846155L223.63103436967072,282.4038461538462L229.05999934409027,334.2307692307692L234.48896431850977,374.4230769230769L239.74280139052868,368.0769230769231L245.17906336088154,388.1730769230769L250.43290043290045,353.2692307692308L255.86186540731995,308.8461538461538L261.29083038173945,353.2692307692308L266.1944116489571,246.4423076923077L271.6233766233766,226.34615384615384L276.8699166994622,167.11538461538458L282.2988816738817,180.86538461538458L287.55271874590056,247.5L292.98168372032006,287.69230769230774L298.4106486947396,325.7692307692308L303.6644857667585,319.4230769230769L309.10074773711136,342.6923076923077L314.35458480913024,297.21153846153845L319.7835497835498,270.7692307692308L325.2125147579693,319.4230769230769L330.1160960251869,218.9423076923077L335.5450609996065,195.6730769230769L340.791601075692,139.61538461538458L346.2205660501115,160.76923076923077L351.4744031221304,213.6538461538462L356.9033680965499,261.25L362.33233307096947,304.61538461538464L367.5861701429883,298.2692307692308L373.0224321133412,326.8269230769231L378.2762691853601,286.63461538461536L383.70523415977965,266.53846153846155L389.13419913419915,288.75L394.2129083038174,205.1923076923077L399.6418732782369,182.98076923076923L404.88841335432244,117.40384615384619L410.31737832874194,151.25L415.5712154007609,196.73076923076923L421.0001803751804,242.21153846153845L426.4291453495999,283.46153846153845L431.68298242161876,278.1730769230769L437.1192443919717,308.8461538461538L442.37308146399056,272.88461538461536L447.80204643841006,248.5576923076923L453.23101141282956,295.0961538461538L458.13459268004726,194.6153846153846L463.56355765446676,173.46153846153845L468.8100977305523,103.65384615384619L474.23906270497184,131.1538461538462L479.4928997769907,177.69230769230768L484.9218647514102,216.8269230769231L490.3508297258297,258.0769230769231L495.60466679784867,260.19230769230774L501.0409287682015,295.0961538461538L506.2947658402204,248.5576923076923L511.7237308146399,231.6346153846154L517.1526957890594,277.11538461538464L522.056277056277,171.3461538461538L527.4852420306966,153.36538461538458L532.731782106782,87.78846153846155L538.1607470812016,116.34615384615381L543.4145841532205,158.6538461538462L548.84354912764,196.73076923076923L554.2725141020595,242.21153846153845L559.5263511740784,234.8076923076923L564.9626131444314,272.88461538461536L570.2164502164502,230.5769230769231L575.6454151908697,174.51923076923077L581.0743801652893,225.28846153846155L585.9779614325068,115.28846153846155L591.4069264069263,96.25L596.6534664830119,28.55769230769232L602.0824314574314,59.230769230769226L607.3362685294503,105.76923076923077L612.7652335038698,142.78846153846155L618.1941984782894,189.3269230769231L623.4480355503083,178.75L628.8842975206611,217.8846153846154L634.13813459268,178.75L639.5670995670996,151.25L644.9960645415191,179.80769230769232L650.0747737111374,83.55769230769232L655.5037386855569,72.98076923076923L660.7502787616424,8.461538461538453L666.179243736062,35.96153846153845L671.4330808080808,79.3269230769231L676.8620457825003,120.5769230769231L682.2910107569198,169.23076923076923L687.5448478289387,168.1730769230769L692.9811097992916,214.71153846153848L698.2349468713105,173.46153846153845L703.66391184573,156.53846153846155L709.0928768201495,207.3076923076923L713.9964580873672,90.96153846153845L719.4254230617868,75.09615384615381L724.6719631378722,12.69230769230768L730.1009281122917,47.59615384615381L735.3547651843107,93.0769230769231L740.7837301587302,139.61538461538458L746.2126951331497,195.6730769230769L751.4665322051686,188.26923076923077L756.9027941755214,221.0576923076923L762.1566312475404,176.63461538461542L767.5855962219599,149.13461538461542L773.0145611963794,202.01923076923077L777.918142463597,84.61538461538458L783.3471074380165,70.86538461538458L788.593647514102,0L794.0226124885215,23.269230769230774L799.2764495605404,64.51923076923077L804.7054145349599,107.88461538461542L810.1343795093794,162.88461538461542L815.3882165813984,166.05769230769232L820.8244785517512,207.3076923076923L826.0783156237701,165L831.5072805981896,142.78846153846155L836.9362455726092,197.78846153846152L841.8398268398269,81.44230769230768L847.2687918142464,69.80769230769232L852.5153318903319,3.1730769230769056L857.9442968647514,33.84615384615381L863.1981339367703,77.21153846153845L868.6270989111898,117.40384615384619L874.0560638856093,160.76923076923077L879.3099009576282,150.19230769230768L884.7461629279811,181.9230769230769L890,133.26923076923077" style="stroke-width: 2;"></path></g><text id="xAxisLabel" transform="translate(445 ,485)" style="text-anchor: middle; font-size: 15px;">Time</text><text id="yAxisLabel" transform="translate(-50,220)rotate(-90)" x="100" y="6" dy="1em" style="text-anchor: end; font-size: 13px;">Average Milk (lbs) / Cow</text><rect class="pane" x="0.5" y="0.5" width="890" height="440"></rect></g></svg></div>
+<script>
+	var margin = {top: 20, right: 20, bottom: 80, left: 60},
+		width = 970 - margin.left - margin.right,
+		height = 540 - margin.top - margin.bottom;
+	
+	var formatDate = d3.timeParse("%Y-%m");
+	
+	var x = d3.scaleTime()
+		.range([0, width]);
+
+	var y = d3.scaleLinear()
+		.range([height, 0]);
+
+	var xAxis = d3.axisBottom(x);
+
+	var yAxis = d3.axisLeft(y)
+		.ticks(10)
+		.tickSize(-width);
+
+	var line = d3.line()
+		.x(function(d) {return x(d.month); })
+		.y(function(d) {return y(d.milkproduction); });
+		
+	var svg = d3.select(".container").append("svg")
+			.attr("class", "graph")
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.attr("viewBox", "0 0 "+ (width + margin.left + margin.right) +" , "+ (height + margin.top + margin.bottom))
+		.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var zoom = d3.zoom()
+				.extent([[0, 0], [width, height]])
+				.scaleExtent([1, 4000000])
+				.translateExtent([[0, 0], [width, height]])
+				.on("zoom", zoom);
+
+	svg.append("defs").append("clipPath")
+			.attr("id", "clip")
+		.append("rect")
+			.attr("width", width)
+			.attr("height", height);
+
+	svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+	svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+	svg.append("g")
+			.attr("class", "chart")
+		.append("path")
+			.attr("clip-path", "url(#clip)")
+			.attr("class", "line");
+
+	svg.append("text")
+		.attr("id", "xAxisLabel")
+		.attr("transform",
+		        "translate(" + (width/2) + " ," + 
+	                           (height + margin.top + 25) + ")")
+	    .style("text-anchor", "middle")
+	    .style("font-size", "15px")
+	    .text("Time");
+
+	svg.append("text")
+		.attr("id", "yAxisLabel")
+		.attr("transform", "translate("+ -(margin.right+30) +"," + height/2 + ")" + "rotate(-90)")
+		.attr("x", 100)
+		.attr("y", 6)
+		.attr("dy", "1em")
+		.style("text-anchor", "end")
+		.style("font-size", "13px")
+		.text("Average Milk (lbs) / Cow");
+	
+	var view = svg.append("rect")
+		    .attr("class", "pane")
+		    .attr("x", 0.5)
+		    .attr("y", 0.5)
+		    .attr("width", width)
+		    .attr("height", height);
+
+	svg.call(zoom);
+
+	d3.tsv("monthly-milk-production-pounds-p.tsv", function(d) {
+		d.month = formatDate(d.month);
+		d.milkproduction = +d.milkproduction;
+		return d;
+	}, function(error, data) {
+		if (error) throw error;
+
+		x.domain(d3.extent(data, function(d) { return d.month; }));
+		y.domain(d3.extent(data, function(d) { return d.milkproduction; }));
+
+		svg.select("g.x.axis").call(xAxis);
+		svg.select("g.y.axis").call(yAxis);
+
+		svg.select("path.line")
+			.datum(data)
+			.attr("d", line);
+	});
+
+	function resize() {
+		var windowWidth		= window.innerWidth,
+			mobileSize		= 25,					// Font sizes
+			tabletSize		= 18,
+			sDesktopSize	= 15,
+			desktopSize		= 10;
+
+		// Mobile width
+		if(windowWidth < 540) {
+			svg.select("g.x.axis").call(xAxis.ticks(5));
+			svg.select("g.y.axis").call(yAxis.ticks(3));
+
+			svg.selectAll(".x.axis text").style("font-size", mobileSize);
+			svg.selectAll(".y.axis text").style("font-size", mobileSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "30px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")");
+
+			svg.select("#yAxisLabel")
+				.style("display", "none");
+
+			svg.select("path.line")
+				.style("stroke-width", 6);
+
+		// Tablet width
+		} else if(windowWidth < 768) {
+			svg.select("g.x.axis").call(xAxis.ticks(8));
+			svg.select("g.y.axis").call(yAxis.ticks(4));
+			
+			svg.selectAll(".x.axis text").style("font-size", tabletSize);
+			svg.selectAll(".y.axis text").style("font-size", tabletSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "22px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")");
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "20px")
+				.attr("transform", "translate("+ -(margin.right+40) +"," + (height/2 - 60) + ")" + "rotate(-90)");
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		
+		// Small screen desktop width
+		} else if(windowWidth < 1024) {
+			svg.select("g.x.axis").call(xAxis.ticks(10));
+			svg.select("g.y.axis").call(yAxis.ticks(5));
+
+			svg.selectAll(".x.axis text").style("font-size", sDesktopSize);
+			svg.selectAll(".y.axis text").style("font-size", sDesktopSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "18px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "18px")
+				.attr("transform", "translate("+ -(margin.right+40) +"," + (height/2 - 60) + ")" + "rotate(-90)");;
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		
+		// Standard desktop width
+		} else {
+			svg.select("g.x.axis").call(xAxis.ticks(10));
+			svg.select("g.y.axis").call(yAxis.ticks(10));
+
+			svg.selectAll(".x.axis text").style("font-size", desktopSize);
+			svg.selectAll(".y.axis text").style("font-size", desktopSize);
+
+			svg.select("#xAxisLabel")
+				.style("font-size", "15px")
+				.attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 25) + ")")
+
+			svg.select("#yAxisLabel")
+				.style("font-size", "13px")
+				.attr("transform", "translate("+ -(margin.right+30) +"," + height/2 + ")" + "rotate(-90)");
+
+			svg.select("path.line")
+				.style("stroke-width", 2);
+		}
+	}
+
+	function zoom() {
+		var t = d3.event.transform, xt = t.rescaleX(x);
+		svg.select("path.line").attr("d", line.x(function(d) {return xt(d.month); }));
+		svg.select("g.x.axis").call(xAxis.scale(xt));
+
+		resize();
+	}
+
+	window.onresize = resize;
+</script>
+
+</body></html>
