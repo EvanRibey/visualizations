@@ -1,0 +1,3 @@
+# Visualization Library
+
+This repo contains a variety of visualization HTML files that I put together for my original portfolio. The files were recreations or alterations of example works from Mike Bostock and altered for work with open source information. All examples were created using D3.js V4. Each folder can be downloaded separately to get each visualization working. Each visualization uses it's own locally stored dataset either in a CSV, TSV, or JSON file.

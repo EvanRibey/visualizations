@@ -1,0 +1,213 @@
+id,value
+#URWhatUTwEat,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Alcohol,3
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.BuildingBlocks,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.BuildingBlocks.Adequacy,2
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.BuildingBlocks.Balance,24
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.BuildingBlocks.Moderation,45
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.BuildingBlocks.Variety,79
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Daily,20
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.EatingPattern,447
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Essential,15
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Alternatives,4
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.BrazilDietaryGuidelines,23
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Canada'sFoodGuide,34
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.EatWellPlate,7
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Fibre,77
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.FoodGroups,40
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.FoodGuide,13
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Fruit,128
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.FruitsAndVegetables,6
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Grain,45
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.M&A,3
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Meats,4
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.Vegetables,164
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.FoodGuide.WholeGrains,16
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Health,272
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Homemade,106
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal.Breakfast,22
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal.Dinner,43
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal.Lunch,19
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal.Meal,119
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Meal.Snack,65
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement.Control,11
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement.PortionSize,10
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement.Serving,67
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement.ServingSizes,1
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Measurement.Sizes,21
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Natural,16
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Nutrition,27
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue,
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Anti-oxidant,24
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.CalorieDense,4
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Fat,84
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Macronutrient,2
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Micronutrient,10
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Mineral,5
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Nutrient,159
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.NutrientDense,43
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Omega3,20
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Protein,80
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Sugar,82
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Supplement,22
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.NutritionValue.Vitamin,74
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Nutritious,25
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Option,61
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Processed,23
+#URWhatUTwEat.EatingPatternsAndDietaryGuidance.Ultra-processed,1
+#URWhatUTwEat.Prevention/Promotion/Assessment,
+#URWhatUTwEat.Prevention/Promotion/Assessment.Disease,
+#URWhatUTwEat.Prevention/Promotion/Assessment.Disease.Disease,13
+#URWhatUTwEat.Prevention/Promotion/Assessment.Disease.Cancer,13
+#URWhatUTwEat.Prevention/Promotion/Assessment.Disease.Diabetes,2
+#URWhatUTwEat.Prevention/Promotion/Assessment.Health,348
+#URWhatUTwEat.Prevention/Promotion/Assessment.Incentives,5
+#URWhatUTwEat.Prevention/Promotion/Assessment.Intervention,1
+#URWhatUTwEat.Prevention/Promotion/Assessment.Limit,13
+#URWhatUTwEat.Prevention/Promotion/Assessment.NOURISHING,2
+#URWhatUTwEat.Prevention/Promotion/Assessment.Policy,8
+#URWhatUTwEat.Prevention/Promotion/Assessment.Population,10
+#URWhatUTwEat.Prevention/Promotion/Assessment.Prevention,7
+#URWhatUTwEat.Prevention/Promotion/Assessment.Reduce,36
+#URWhatUTwEat.Prevention/Promotion/Assessment.Risk,22
+#URWhatUTwEat.Prevention/Promotion/Assessment.Strategy,8
+#URWhatUTwEat.Prevention/Promotion/Assessment.Tax,2
+#URWhatUTwEat.FoodSustainability,
+#URWhatUTwEat.FoodSustainability.Agriculture,2
+#URWhatUTwEat.FoodSustainability.Canada,24
+#URWhatUTwEat.FoodSustainability.Environment,40
+#URWhatUTwEat.FoodSustainability.FairTrade,1
+#URWhatUTwEat.FoodSustainability.Farm,27
+#URWhatUTwEat.FoodSustainability.FoodSupply,8
+#URWhatUTwEat.FoodSustainability.FoodWaste,
+#URWhatUTwEat.FoodSustainability.FoodWaste.FoodWasteWaste,73
+#URWhatUTwEat.FoodSustainability.FoodWaste.Leftovers,31
+#URWhatUTwEat.FoodSustainability.Footprint,10
+#URWhatUTwEat.FoodSustainability.Local,67
+#URWhatUTwEat.FoodSustainability.Markets,45
+#URWhatUTwEat.FoodSustainability.Non-GMO,1
+#URWhatUTwEat.FoodSustainability.Organic,17
+#URWhatUTwEat.FoodSustainability.Planet,4
+#URWhatUTwEat.FoodSustainability.Recycle,
+#URWhatUTwEat.FoodSustainability.Recycle.Recycle,1
+#URWhatUTwEat.FoodSustainability.Recycle.Reusable,11
+#URWhatUTwEat.FoodSustainability.Recycle.Reuse,3
+#URWhatUTwEat.FoodSustainability.Sustainability,15
+#URWhatUTwEat.FoodSustainability.Sustainable,48
+#URWhatUTwEat.FoodSustainability.System,6
+#URWhatUTwEat.FoodSustainability.Vegetarian,
+#URWhatUTwEat.FoodSustainability.Vegetarian.MeatlessMonday,21
+#URWhatUTwEat.FoodSustainability.Vegetarian.Vegan,19
+#URWhatUTwEat.FoodSustainability.Vegetarian.Vegetarian,11
+#URWhatUTwEat.FoodSustainability.WorldFoodDay,5
+#URWhatUTwEat.ObesityAndWeightBias,
+#URWhatUTwEat.ObesityAndWeightBias.Diabetes,2
+#URWhatUTwEat.ObesityAndWeightBias.Diet,106
+#URWhatUTwEat.ObesityAndWeightBias.EatingDisorder,2
+#URWhatUTwEat.ObesityAndWeightBias.Obesity,82
+#URWhatUTwEat.ObesityAndWeightBias.WeightBias,9
+#URWhatUTwEat.FoodInsecurity,
+#URWhatUTwEat.FoodInsecurity.Cheap, 11
+#URWhatUTwEat.FoodInsecurity.Deal, 4
+#URWhatUTwEat.FoodInsecurity.Expensive, 7
+#URWhatUTwEat.FoodInsecurity.FairTrade, 2
+#URWhatUTwEat.FoodInsecurity.Inexpensive, 1
+#URWhatUTwEat.FoodInsecurity.Insecure, 3
+#URWhatUTwEat.FoodInsecurity.Insecurity, 4
+#URWhatUTwEat.FoodInsecurity.LowIncome, 0
+#URWhatUTwEat.FoodInsecurity.Market, 15
+#URWhatUTwEat.FoodInsecurity.Money, 11
+#URWhatUTwEat.FoodInsecurity.Security, 1
+#URWhatUTwEat.FoodInsecurity.SES, 16
+#URWhatUTwEat.FoodInsecurity.Wages, 1
+#URWhatUTwEat.FoodLiteracy,
+#URWhatUTwEat.FoodLiteracy.Additives, 1
+#URWhatUTwEat.FoodLiteracy.Advertise, 7
+#URWhatUTwEat.FoodLiteracy.Cook, 97
+#URWhatUTwEat.FoodLiteracy.Detox, 0
+#URWhatUTwEat.FoodLiteracy.Fad, 15
+#URWhatUTwEat.FoodLiteracy.Fresh, 67
+#URWhatUTwEat.FoodLiteracy.Gluten,
+#URWhatUTwEat.FoodLiteracy.Gluten.Gluten, 20
+#URWhatUTwEat.FoodLiteracy.Gluten.Gluten-Free, 16
+#URWhatUTwEat.FoodLiteracy.Health, 348
+#URWhatUTwEat.FoodLiteracy.Hidden, 12
+#URWhatUTwEat.FoodLiteracy.Illiteracy, 1
+#URWhatUTwEat.FoodLiteracy.Knowledge, 2
+#URWhatUTwEat.FoodLiteracy.Label,
+#URWhatUTwEat.FoodLiteracy.Label.FoodLabel, 13
+#URWhatUTwEat.FoodLiteracy.Label.Ingredients, 28
+#URWhatUTwEat.FoodLiteracy.Label.Label, 35
+#URWhatUTwEat.FoodLiteracy.Label.NutritionFacts, 2
+#URWhatUTwEat.FoodLiteracy.Label.NutritionLabel, 4
+#URWhatUTwEat.FoodLiteracy.Natural, 17
+#URWhatUTwEat.FoodLiteracy.Non-GMO, 1
+#URWhatUTwEat.FoodLiteracy.Organic, 17
+#URWhatUTwEat.FoodLiteracy.Process, 20
+#URWhatUTwEat.FoodLiteracy.Pseudoscience, 25
+#URWhatUTwEat.FoodLiteracy.Skills, 9
+#URWhatUTwEat.FoodLiteracy.SocialMedia, 2
+#URWhatUTwEat.FoodLiteracy.Sugar, 105
+#URWhatUTwEat.FoodLiteracy.SuperFood, 36
+#URWhatUTwEat.FoodLiteracy.Supplement, 16
+#URWhatUTwEat.FoodLiteracy.Trend, 2
+#URWhatUTwEat.FoodLiteracy.Ultraprocessed, 1
+#URWhatUTwEat.FoodEnvironmentAndIndustry,
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Advertise, 7
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Convenient, 5
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Criteria,
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Criteria.Accessible, 15
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Criteria.Afford, 14
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Criteria.Appropriate, 9
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Criteria.Available, 9
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Desert, 1
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Environment, 48
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Fast, 11
+#URWhatUTwEat.FoodEnvironmentAndIndustry.FastFood, 16
+#URWhatUTwEat.FoodEnvironmentAndIndustry.FoodEnvironment, 8
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Industry, 4
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Market, 15
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Marketing, 22
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Purchase, 3
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Quick, 25
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment,
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.Consumer, 9
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.Restaurant, 18
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.Retailer, 1
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.Shop, 10
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.Store, 11
+#URWhatUTwEat.FoodEnvironmentAndIndustry.RetailEnvironment.VendingMachine, 1
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Schools,
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Schools.Campus, 43
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Schools.School, 5
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Student, 49
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Swamp, 29
+#URWhatUTwEat.FoodEnvironmentAndIndustry.System, 6
+#URWhatUTwEat.FoodEnvironmentAndIndustry.Tax, 2
+#URWhatUTwEat.FoodAndCulture,
+#URWhatUTwEat.FoodAndCulture.Culture,36
+#URWhatUTwEat.FoodAndCulture.Homemade,155
+#URWhatUTwEat.FoodAndCulture.Network,
+#URWhatUTwEat.FoodAndCulture.Network.Family,29
+#URWhatUTwEat.FoodAndCulture.Network.Friend,50
+#URWhatUTwEat.FoodAndCulture.Network.People,27
+#URWhatUTwEat.FoodAndCulture.Network.Support,10
+#URWhatUTwEat.FoodAndCulture.Peace,1
+#URWhatUTwEat.FoodAndCulture.Social,59
+#URWhatUTwEat.FoodSupply,
+#URWhatUTwEat.FoodSupply.Calorie dense,4
+#URWhatUTwEat.FoodSupply.Canned,4
+#URWhatUTwEat.FoodSupply.Fresh,86
+#URWhatUTwEat.FoodSupply.High carb,2
+#URWhatUTwEat.FoodSupply.Natural,17
+#URWhatUTwEat.FoodSupply.Nutrient dense,55
+#URWhatUTwEat.FoodSupply.Pre-packaged,2
+#URWhatUTwEat.FoodSupply.Preservatives,2
+#URWhatUTwEat.FoodSupply.Processed,20
+#URWhatUTwEat.FoodSupply.SugarSweetenedBeverages,682
+#URWhatUTwEat.FoodSupply.Ultra-processed,1
+#URWhatUTwEat.FoodSupply.Unprocessed,2
